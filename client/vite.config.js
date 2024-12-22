@@ -1,8 +1,10 @@
 import { defineConfig } from "vite";
+import react from "@vitejs/plugin-react";
 
 export default defineConfig({
-  base: "./", // Usa './' para rutas relativas (útil para despliegues estáticos)
+  plugins: [react()],
+  base: "./", // Asegura rutas relativas si es necesario
   build: {
-    outDir: "dist", // El directorio donde Vite genera los archivos de producción
+    outDir: "dist", // Directorio de salida para los archivos generados
   },
 });
