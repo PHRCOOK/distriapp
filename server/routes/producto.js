@@ -4,7 +4,7 @@ const {
   createProduct,
   updateProduct,
   deleteProduct,
-} = require("../controllers/productoController.js");
+} = require("../controllers/producto.js");
 
 const router = express.Router();
 

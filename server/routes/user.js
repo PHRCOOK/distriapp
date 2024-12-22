@@ -6,7 +6,7 @@ const {
   deleteUser,
   getUsers,
   getUserById,
-} = require("../controllers/userController.js");
+} = require("../controllers/user.js");
 
 const router = express.Router();
 

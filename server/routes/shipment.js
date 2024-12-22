@@ -1,6 +1,6 @@
 const express = require("express");
 const router = express.Router();
-const shipmentController = require("../controllers/shipmentController.js");
+const shipmentController = require("../controllers/shipment.js");
 
 router.post("/shipment", shipmentController.createShipment);
 router.get("/shipment", shipmentController.getShipments);
