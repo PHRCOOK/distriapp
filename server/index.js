@@ -3,11 +3,11 @@ const bodyParser = require("body-parser");
 const cors = require("cors");
 const dotenv = require("dotenv");
 const { sequelize } = require("./config/db.js");
-const userRoutes = require("./routes/UserRoutes.js");
-const contactoRoutes = require("./routes/ContactoRoutes.js");
-const productoRoutes = require("./routes/ProductoRoutes.js");
-const orderRoutes = require("./routes/OrderRoutes.js");
-const shipmentRoutes = require("./routes/ShipmentRoutes.js");
+const userRoutes = require("./routes/userRoutes.js");
+const contactoRoutes = require("./routes/contactoRoutes.js");
+const productoRoutes = require("./routes/productoRoutes.js");
+const orderRoutes = require("./routes/orderRoutes.js");
+const shipmentRoutes = require("./routes/shipmentRoutes.js");
 
 const User = require("./models/User.js");
 const Producto = require("./models/Producto.js");
