@@ -2,18 +2,18 @@ const express = require("express");
 const bodyParser = require("body-parser");
 const cors = require("cors");
 const dotenv = require("dotenv");
-const { sequelize } = require("./config/db");
-const userRoutes = require("./routes/UserRoutes");
-const contactoRoutes = require("./routes/ContactoRoutes");
-const productoRoutes = require("./routes/ProductoRoutes");
-const orderRoutes = require("./routes/OrderRoutes");
-const shipmentRoutes = require("./routes/ShipmentRoutes");
+const { sequelize } = require("./config/db.js");
+const userRoutes = require("./routes/UserRoutes.js");
+const contactoRoutes = require("./routes/ContactoRoutes.js");
+const productoRoutes = require("./routes/ProductoRoutes.js");
+const orderRoutes = require("./routes/OrderRoutes.js");
+const shipmentRoutes = require("./routes/ShipmentRoutes.js");
 
-const User = require("./models/User");
-const Producto = require("./models/Producto");
-const Contacto = require("./models/Contacto");
-const Order = require("./models/Order");
-const Shipment = require("./models/Shipment");
+const User = require("./models/User.js");
+const Producto = require("./models/Producto.js");
+const Contacto = require("./models/Contacto.js");
+const Order = require("./models/Order.js");
+const Shipment = require("./models/Shipment.js");
 
 dotenv.config();
 
@@ -71,7 +71,7 @@ Shipment.belongsTo(Producto, {
 });
 
 sequelize
-  .sync({ force: true })
+  .sync({ force: flase })
   .then(() => {
     console.log("Tablas sincronizadas");
   })

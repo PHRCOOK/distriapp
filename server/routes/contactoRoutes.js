@@ -3,7 +3,7 @@ const {
   createMessage,
   getMessages,
   deleteMessage,
-} = require("../controllers/ContactoController");
+} = require("../controllers/ContactoController.js");
 
 const router = express.Router();
 
