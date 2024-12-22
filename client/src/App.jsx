@@ -20,7 +20,7 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import "bootstrap/dist/js/bootstrap.bundle.min.js";
 
 axios.defaults.baseURL =
-  "https://dashboard.render.com/project/prj-ctjotv0gph6c738iad2g";
+  "postgresql://distriapp_server_user:cZs3M4KFkEA2HweTVeOLOeUVNQFlmD2v@dpg-ctjp12q3esus73e48vng-a.oregon-postgres.render.com/distriapp_server";
 
 const App = () => {
   return (
