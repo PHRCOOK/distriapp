@@ -1,4 +1,4 @@
-const Shipment = require("../models/Shipment.js");
+const Shipment = require("../models/shipment.js");
 
 exports.createShipment = async (req, res) => {
   try {
