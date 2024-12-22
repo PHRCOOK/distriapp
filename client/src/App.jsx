@@ -19,7 +19,8 @@ import axios from "axios";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "bootstrap/dist/js/bootstrap.bundle.min.js";
 
-axios.defaults.baseURL = "http://localhost:5000/api";
+axios.defaults.baseURL =
+  "https://dashboard.render.com/project/prj-ctjotv0gph6c738iad2g";
 
 const App = () => {
   return (
