@@ -1,3 +1,4 @@
+const bcrypt = require("bcrypt");
 const User = require("../models/User");
 
 const login = async (req, res) => {
@@ -10,10 +11,11 @@ const login = async (req, res) => {
       return res.status(400).json({ message: "Usuario no encontrado" });
     }
 
-    // Aquí podrías agregar la validación de la contraseña, por ejemplo:
-    // if (user.password !== password) {
-    //   return res.status(400).json({ message: "Contraseña incorrecta" });
-    // }
+    // Validación de contraseña
+    const isPasswordValid = await bcrypt.compare(password, user.password);
+    if (!isPasswordValid) {
+      return res.status(400).json({ message: "Contraseña incorrecta" });
+    }
 
     res.json({ message: "Login exitoso", user });
   } catch (error) {
@@ -34,9 +36,12 @@ const register = async (req, res) => {
       return res.status(400).json({ message: "El correo ya está registrado" });
     }
 
+    // Encriptar la contraseña antes de guardarla
+    const hashedPassword = await bcrypt.hash(password, 10);
+
     const user = await User.create({
       email,
-      password,
+      password: hashedPassword,
       name,
       address,
       dni,
@@ -53,6 +58,7 @@ const register = async (req, res) => {
   }
 };
 
+// Los demás controladores no necesitan modificaciones para la validación de contraseña
 const updateUser = async (req, res) => {
   const { id } = req.params;
   const { name, email, password, address, dni, role } = req.body;
@@ -64,7 +70,10 @@ const updateUser = async (req, res) => {
       return res.status(404).json({ message: "Usuario no encontrado" });
     }
 
-    if (password) user.password = password;
+    if (password) {
+      // Encriptar la nueva contraseña antes de actualizarla
+      user.password = await bcrypt.hash(password, 10);
+    }
     if (name) user.name = name;
     if (email) user.email = email;
     if (address) user.address = address;
