@@ -19,8 +19,7 @@ import axios from "axios";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "bootstrap/dist/js/bootstrap.bundle.min.js";
 
-axios.defaults.baseURL =
-  "postgresql://distriapp_server_user:cZs3M4KFkEA2HweTVeOLOeUVNQFlmD2v@dpg-ctjp12q3esus73e48vng-a.oregon-postgres.render.com/distriapp_server";
+axios.defaults.baseURL = "http://localhost:5000/api";
 
 const App = () => {
   return (
