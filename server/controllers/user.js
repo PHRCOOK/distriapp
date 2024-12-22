@@ -1,6 +1,9 @@
-const bcrypt = require("bcrypt");
+// Importar dependencias
+const bcryptjs = require("bcryptjs");
 const User = require("../models/user.js");
+const { validationResult } = require("express-validator");
 
+// Controladores
 const login = async (req, res) => {
   const { email, password } = req.body;
 
@@ -12,12 +15,22 @@ const login = async (req, res) => {
     }
 
     // Validación de contraseña
-    const isPasswordValid = await bcrypt.compare(password, user.password);
+    const isPasswordValid = await bcryptjs.compare(password, user.password);
     if (!isPasswordValid) {
       return res.status(400).json({ message: "Contraseña incorrecta" });
     }
 
-    res.json({ message: "Login exitoso", user });
+    res.json({
+      message: "Login exitoso",
+      user: {
+        id: user.id,
+        email: user.email,
+        name: user.name,
+        address: user.address,
+        dni: user.dni,
+        role: user.role,
+      },
+    });
   } catch (error) {
     console.error(error);
     res.status(500).json({
@@ -28,6 +41,11 @@ const login = async (req, res) => {
 };
 
 const register = async (req, res) => {
+  const errors = validationResult(req);
+  if (!errors.isEmpty()) {
+    return res.status(400).json({ errors: errors.array() });
+  }
+
   const { email, password, name, address, dni, role } = req.body;
 
   try {
@@ -37,7 +55,7 @@ const register = async (req, res) => {
     }
 
     // Encriptar la contraseña antes de guardarla
-    const hashedPassword = await bcrypt.hash(password, 10);
+    const hashedPassword = await bcryptjs.hash(password, 10);
 
     const user = await User.create({
       email,
@@ -48,7 +66,14 @@ const register = async (req, res) => {
       role,
     });
 
-    res.status(201).json(user);
+    res.status(201).json({
+      id: user.id,
+      email: user.email,
+      name: user.name,
+      address: user.address,
+      dni: user.dni,
+      role: user.role,
+    });
   } catch (error) {
     console.error(error);
     res.status(500).json({
@@ -58,7 +83,6 @@ const register = async (req, res) => {
   }
 };
 
-// Los demás controladores no necesitan modificaciones para la validación de contraseña
 const updateUser = async (req, res) => {
   const { id } = req.params;
   const { name, email, password, address, dni, role } = req.body;
@@ -72,7 +96,7 @@ const updateUser = async (req, res) => {
 
     if (password) {
       // Encriptar la nueva contraseña antes de actualizarla
-      user.password = await bcrypt.hash(password, 10);
+      user.password = await bcryptjs.hash(password, 10);
     }
     if (name) user.name = name;
     if (email) user.email = email;
@@ -82,7 +106,17 @@ const updateUser = async (req, res) => {
 
     await user.save();
 
-    res.status(200).json({ message: "Usuario actualizado", user });
+    res.status(200).json({
+      message: "Usuario actualizado",
+      user: {
+        id: user.id,
+        email: user.email,
+        name: user.name,
+        address: user.address,
+        dni: user.dni,
+        role: user.role,
+      },
+    });
   } catch (error) {
     console.error(error);
     res.status(500).json({
@@ -103,7 +137,14 @@ const deleteUser = async (req, res) => {
     }
 
     await user.destroy();
-    res.status(200).json({ message: "Usuario eliminado", user });
+    res.status(200).json({
+      message: "Usuario eliminado",
+      user: {
+        id: user.id,
+        email: user.email,
+        name: user.name,
+      },
+    });
   } catch (error) {
     console.error(error);
     res.status(500).json({
@@ -127,6 +168,7 @@ const getUsers = async (req, res) => {
     });
   }
 };
+
 const getUserById = async (req, res) => {
   const { id } = req.params;
 
