@@ -71,7 +71,7 @@ Shipment.belongsTo(Producto, {
 });
 
 sequelize
-  .sync({ force: flase })
+  .sync({ force: false })
   .then(() => {
     console.log("Tablas sincronizadas");
   })
