@@ -1,6 +1,6 @@
 // Importar dependencias
 const bcryptjs = require("bcryptjs");
-const User = require("../../server/models/user.js");
+const User = require("../models/user.js");
 const { validationResult } = require("express-validator");
 
 // Controladores

@@ -1,4 +1,4 @@
-const Contacto = require("../../server/models/contacto.js"); // Asegúrate de que esta ruta es correcta
+const Contacto = require("../models/contacto.js"); // Asegúrate de que esta ruta es correcta
 
 const createMessage = async (req, res) => {
   try {

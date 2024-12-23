@@ -2,18 +2,18 @@ const express = require("express");
 const bodyParser = require("body-parser");
 const cors = require("cors");
 const dotenv = require("dotenv");
-const { sequelize } = require("../server/config/db.js");
-const userRoutes = require("../server/routes/user.js");
-const contactoRoutes = require("../server/routes/contacto.js");
-const productoRoutes = require("../server/routes/producto.js");
-const orderRoutes = require("../server/routes/order.js");
-const shipmentRoutes = require("../server/routes/shipment.js");
+const { sequelize } = require("./config/db.js");
+const userRoutes = require("./routes/user.js");
+const contactoRoutes = require("./routes/contacto.js");
+const productoRoutes = require("./routes/producto.js");
+const orderRoutes = require("./routes/order.js");
+const shipmentRoutes = require("./routes/shipment.js");
 
-const User = require("../server/models/user.js");
-const Producto = require("../server/models/producto.js");
-const Contacto = require("../server/models/contacto.js");
-const Order = require("../server/models/order.js");
-const Shipment = require("../server/models/shipment.js");
+const User = require("./models/user.js");
+const Producto = require("./models/producto.js");
+const Contacto = require("./models/contacto.js");
+const Order = require("./models/order.js");
+const Shipment = require("./models/shipment.js");
 
 dotenv.config();
 
