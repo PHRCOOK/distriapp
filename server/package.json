@@ -21,6 +21,6 @@
     "express-validator": "^7.2.0",
     "pg": "^8.13.1",
     "sequelize": "^6.37.5",
-    "vercel": "^39.2.2"
+    "vercel": "^32.3.0"
   }
 }

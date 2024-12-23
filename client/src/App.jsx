@@ -19,7 +19,7 @@ import axios from "axios";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "bootstrap/dist/js/bootstrap.bundle.min.js";
 
-axios.defaults.baseURL = "https://ruqkmecjnlfxeldkzgvy.supabase.co";
+axios.defaults.baseURL = "http://localhost:5000/api";
 
 const App = () => {
   return (
