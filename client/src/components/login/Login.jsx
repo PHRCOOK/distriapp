@@ -35,10 +35,13 @@ const Login = ({ onClose }) => {
     } else {
       try {
         setErrorMessage("");
-        const response = await axios.post("/login", {
-          email,
-          password,
-        });
+        const response = await axios.post(
+          "https://ruqkmecjnlfxeldkzgvy.supabase.co/login",
+          {
+            email,
+            password,
+          }
+        );
 
         // Log the full response to inspect its structure
         console.log("Full response data:", response.data);
