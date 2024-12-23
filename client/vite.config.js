@@ -3,8 +3,8 @@ import react from "@vitejs/plugin-react";
 
 export default defineConfig({
   plugins: [react()],
-  base: "/",
+  base: "/", // Esto es importante para asegurar que las rutas de recursos se resuelvan correctamente
   build: {
-    outDir: "dist",
+    outDir: "dist", // Carpeta donde se generan los archivos de producción
   },
 });
