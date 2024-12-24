@@ -1,10 +1,9 @@
-// Importar dependencias
-const bcryptjs = require("bcryptjs");
-const User = require("../models/User.js");
-const { validationResult } = require("express-validator");
+import bcryptjs from "bcryptjs";
+import User from "../models/User.js";
+import { validationResult } from "express-validator";
 
 // Controladores
-const login = async (req, res) => {
+export const login = async (req, res) => {
   const { email, password } = req.body;
 
   try {
@@ -40,7 +39,7 @@ const login = async (req, res) => {
   }
 };
 
-const register = async (req, res) => {
+export const register = async (req, res) => {
   const errors = validationResult(req);
   if (!errors.isEmpty()) {
     return res.status(400).json({ errors: errors.array() });
@@ -83,7 +82,7 @@ const register = async (req, res) => {
   }
 };
 
-const updateUser = async (req, res) => {
+export const updateUser = async (req, res) => {
   const { id } = req.params;
   const { name, email, password, address, dni, role } = req.body;
 
@@ -126,7 +125,7 @@ const updateUser = async (req, res) => {
   }
 };
 
-const deleteUser = async (req, res) => {
+export const deleteUser = async (req, res) => {
   const { id } = req.params;
 
   try {
@@ -154,7 +153,7 @@ const deleteUser = async (req, res) => {
   }
 };
 
-const getUsers = async (req, res) => {
+export const getUsers = async (req, res) => {
   try {
     const users = await User.findAll({
       attributes: ["id", "email", "name", "address", "dni", "role"],
@@ -169,7 +168,7 @@ const getUsers = async (req, res) => {
   }
 };
 
-const getUserById = async (req, res) => {
+export const getUserById = async (req, res) => {
   const { id } = req.params;
 
   try {
@@ -189,13 +188,4 @@ const getUserById = async (req, res) => {
       error: error.message,
     });
   }
-};
-
-module.exports = {
-  login,
-  register,
-  updateUser,
-  deleteUser,
-  getUsers,
-  getUserById,
 };

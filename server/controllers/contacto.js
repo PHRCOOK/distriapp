@@ -1,4 +1,4 @@
-const Contacto = require("../models/Contacto.js"); // Asegúrate de que esta ruta es correcta
+import Contacto from "../models/Contacto.js"; // Asegúrate de que esta ruta es correcta
 
 const createMessage = async (req, res) => {
   try {
@@ -48,8 +48,5 @@ const deleteMessage = async (req, res) => {
   }
 };
 
-module.exports = {
-  createMessage,
-  getMessages,
-  deleteMessage,
-};
+// Exportar las funciones
+export { createMessage, getMessages, deleteMessage };

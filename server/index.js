@@ -1,19 +1,19 @@
-const express = require("express");
-const bodyParser = require("body-parser");
-const cors = require("cors");
-const dotenv = require("dotenv");
-const { sequelize } = require("./config/db.js");
-const userRoutes = require("./routes/user.js");
-const contactoRoutes = require("./routes/contacto.js");
-const productoRoutes = require("./routes/producto.js");
-const orderRoutes = require("./routes/order.js");
-const shipmentRoutes = require("./routes/shipment.js");
+import express from "express";
+import bodyParser from "body-parser";
+import cors from "cors";
+import dotenv from "dotenv";
+import { sequelize } from "./config/db.js";
+import userRoutes from "./routes/user.js";
+import contactoRoutes from "./routes/contacto.js";
+import productoRoutes from "./routes/producto.js";
+import orderRoutes from "./routes/order.js";
+import shipmentRoutes from "./routes/shipment.js";
 
-const User = require("./models/User.js");
-const Producto = require("./models/Producto.js");
-const Contacto = require("./models/Contacto.js");
-const Order = require("./models/Order.js");
-const Shipment = require("./models/Shipment.js");
+import User from "./models/User.js";
+import Producto from "./models/Producto.js";
+import Contacto from "./models/Contacto.js";
+import Order from "./models/Order.js";
+import Shipment from "./models/Shipment.js";
 
 dotenv.config();
 

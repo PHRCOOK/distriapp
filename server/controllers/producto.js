@@ -1,6 +1,6 @@
-const Producto = require("../models/Producto.js");
+import Producto from "../models/Producto.js";
 
-const getProducts = async (req, res) => {
+export const getProducts = async (req, res) => {
   const { name, price, description, stock } = req.body;
 
   try {
@@ -31,7 +31,7 @@ const getProducts = async (req, res) => {
   }
 };
 
-const createProduct = async (req, res) => {
+export const createProduct = async (req, res) => {
   const { name, price, description, image, stock } = req.body;
 
   try {
@@ -50,7 +50,7 @@ const createProduct = async (req, res) => {
   }
 };
 
-const updateProduct = async (req, res) => {
+export const updateProduct = async (req, res) => {
   const { id } = req.params;
   const { name, price, description, image, stock } = req.body;
 
@@ -78,7 +78,7 @@ const updateProduct = async (req, res) => {
   }
 };
 
-const deleteProduct = async (req, res) => {
+export const deleteProduct = async (req, res) => {
   const { id } = req.params;
 
   try {
@@ -96,5 +96,3 @@ const deleteProduct = async (req, res) => {
       .json({ message: "Error al eliminar el producto", error: error.message });
   }
 };
-
-module.exports = { getProducts, createProduct, updateProduct, deleteProduct };

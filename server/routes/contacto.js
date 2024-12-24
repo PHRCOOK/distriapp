@@ -1,9 +1,9 @@
-const express = require("express");
-const {
+import express from "express";
+import {
   createMessage,
   getMessages,
   deleteMessage,
-} = require("../controllers/contacto.js");
+} from "../controllers/contacto.js";
 
 const router = express.Router();
 
@@ -11,4 +11,4 @@ router.post("/contacto", createMessage);
 router.get("/contacto", getMessages);
 router.delete("/contacto/:id", deleteMessage);
 
-module.exports = router;
+export default router;

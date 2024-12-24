@@ -21,8 +21,11 @@
 // };
 
 // module.exports = { sequelize, connectDB };
-const { Sequelize } = require("sequelize");
-require("dotenv").config();
+import { Sequelize } from "sequelize";
+import dotenv from "dotenv";
+
+// Cargar las variables de entorno
+dotenv.config();
 
 // Si estás en producción o en Railway, usa DATABASE_URL. En desarrollo, usa las otras variables de entorno
 const databaseUrl =
@@ -49,4 +52,5 @@ const connectDB = async () => {
   }
 };
 
-module.exports = { sequelize, connectDB };
+// Exportar sequelize y connectDB
+export { sequelize, connectDB };

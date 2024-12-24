@@ -1,10 +1,11 @@
-const express = require("express");
+import express from "express";
+import shipmentController from "../controllers/shipment.js";
+
 const router = express.Router();
-const shipmentController = require("../controllers/shipment.js");
 
 router.post("/shipment", shipmentController.createShipment);
 router.get("/shipment", shipmentController.getShipments);
 router.delete("/shipment", shipmentController.clearShipmentHistory);
 router.delete("/shipment/:id", shipmentController.deleteShipment);
 
-module.exports = router;
+export default router;
