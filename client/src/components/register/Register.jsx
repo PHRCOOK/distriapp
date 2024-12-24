@@ -9,18 +9,14 @@ const Register = ({ onClose }) => {
   const [name, setName] = useState("");
   const [address, setAddress] = useState("");
   const [dni, setDni] = useState("");
+  const [role, setRole] = useState("client"); // Default role 'client'
   const [errorMessage, setErrorMessage] = useState("");
 
   const handleRegister = async (e) => {
     e.preventDefault();
 
-    if (
-      email === "" ||
-      password === "" ||
-      name === "" ||
-      address === "" ||
-      dni === ""
-    ) {
+    // Validación del lado del cliente
+    if (!email || !password || !name || !address || !dni || !role) {
       setErrorMessage("Por favor, complete todos los campos.");
       return;
     }
@@ -33,12 +29,14 @@ const Register = ({ onClose }) => {
       name,
       address,
       dni,
+      role, // Se envía el rol
     };
 
     try {
-      const response = await axios.post("/register", user);
+      // Ajusta la URL según tu API backend
+      const response = await axios.post("/users", user); // Usa /users para registrar
       console.log("Usuario registrado con éxito:", response.data);
-      onClose(); // Close the modal on successful registration
+      onClose(); // Cierra el modal en caso de éxito
     } catch (error) {
       console.error("Error al registrar el usuario:", error);
       setErrorMessage("Error al registrar el usuario. Inténtalo nuevamente.");
@@ -89,6 +87,18 @@ const Register = ({ onClose }) => {
                 onChange={(e) => setDni(e.target.value)}
                 required
               />
+              <div className="form-group">
+                <label htmlFor="role">Rol</label>
+                <select
+                  id="role"
+                  className="form-control"
+                  value={role}
+                  onChange={(e) => setRole(e.target.value)}
+                >
+                  <option value="client">Cliente</option>
+                  <option value="admin">Administrador</option>
+                </select>
+              </div>
               {/* Mensaje de error */}
               {errorMessage && <ErrorMessage message={errorMessage} />}
               <button type="submit" className="btn btn-primary w-100">
