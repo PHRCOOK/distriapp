@@ -1,5 +1,5 @@
 // controllers/shipment.js
-import Shipment from "../models/Shipment.js";
+import Shipment from "../models/shipment.js";
 
 const shipmentController = {
   createShipment: async (req, res) => {

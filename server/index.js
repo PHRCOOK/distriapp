@@ -13,7 +13,7 @@ import User from "./models/User.js";
 import Producto from "./models/Producto.js";
 import Contacto from "./models/Contacto.js";
 import Order from "./models/Order.js";
-import Shipment from "./models/Shipment.js";
+import Shipment from "./models/shipment.js";
 
 dotenv.config();
 
