@@ -6,7 +6,7 @@
       "port": 5432,
       "driver": "PostgreSQL",
       "name": "postgres",
-      "database": "distriapp",
+      "database": "distriapp2",
       "username": "postgres"
     }
   ]
