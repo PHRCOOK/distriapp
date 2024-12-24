@@ -10,10 +10,10 @@ const orderRoutes = require("./routes/order.js");
 const shipmentRoutes = require("./routes/shipment.js");
 
 const User = require("./models/User.js");
-const Producto = require("./models/producto.js");
-const Contacto = require("./models/contacto.js");
-const Order = require("./models/order.js");
-const Shipment = require("./models/shipment.js");
+const Producto = require("./models/Producto.js");
+const Contacto = require("./models/Contacto.js");
+const Order = require("./models/Order.js");
+const Shipment = require("./models/Shipment.js");
 
 dotenv.config();
 
