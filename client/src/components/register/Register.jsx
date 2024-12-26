@@ -11,6 +11,7 @@ const Register = ({ onClose }) => {
   const [dni, setDni] = useState("");
   const [role, setRole] = useState("client"); // Default role 'client'
   const [errorMessage, setErrorMessage] = useState("");
+  const [successMessage, setSuccessMessage] = useState(""); // Para mostrar mensajes de éxito
 
   const handleRegister = async (e) => {
     e.preventDefault();
@@ -21,7 +22,8 @@ const Register = ({ onClose }) => {
       return;
     }
 
-    setErrorMessage("");
+    setErrorMessage(""); // Limpiar cualquier mensaje de error anterior
+    setSuccessMessage(""); // Limpiar cualquier mensaje de éxito anterior
 
     const user = {
       email,
@@ -33,13 +35,26 @@ const Register = ({ onClose }) => {
     };
 
     try {
-      // Ajusta la URL según tu API backend
-      const response = await axios.post("/users", user); // Usa /users para registrar
-      console.log("Usuario registrado con éxito:", response.data);
-      onClose(); // Cierra el modal en caso de éxito
+      // Realizamos la solicitud POST para registrar el usuario
+      const response = await axios.post("/users", user);
+
+      if (response.status === 201) {
+        // Si la respuesta es exitosa, mostramos mensaje de éxito
+        setSuccessMessage("Usuario registrado con éxito.");
+        setTimeout(() => {
+          onClose(); // Cerrar el modal después de unos segundos
+        }, 2000);
+      }
     } catch (error) {
-      console.error("Error al registrar el usuario:", error);
-      setErrorMessage("Error al registrar el usuario. Inténtalo nuevamente.");
+      // Manejo de errores
+      if (error.response && error.response.data) {
+        setErrorMessage(
+          error.response.data.message ||
+            "Error al registrar el usuario. Inténtalo nuevamente."
+        );
+      } else {
+        setErrorMessage("Error de conexión. Por favor, intenta nuevamente.");
+      }
     }
   };
 
@@ -101,6 +116,10 @@ const Register = ({ onClose }) => {
               </div>
               {/* Mensaje de error */}
               {errorMessage && <ErrorMessage message={errorMessage} />}
+              {/* Mensaje de éxito */}
+              {successMessage && (
+                <div className="alert alert-success">{successMessage}</div>
+              )}
               <button type="submit" className="btn btn-primary w-100">
                 Registrarse
               </button>
