@@ -9,7 +9,6 @@ const Register = ({ onClose }) => {
   const [name, setName] = useState("");
   const [address, setAddress] = useState("");
   const [dni, setDni] = useState("");
-  const [role, setRole] = useState("client"); // Default role 'client'
   const [errorMessage, setErrorMessage] = useState("");
   const [successMessage, setSuccessMessage] = useState(""); // Para mostrar mensajes de éxito
 
@@ -17,7 +16,7 @@ const Register = ({ onClose }) => {
     e.preventDefault();
 
     // Validación del lado del cliente
-    if (!email || !password || !name || !address || !dni || !role) {
+    if (!email || !password || !name || !address || !dni) {
       setErrorMessage("Por favor, complete todos los campos.");
       return;
     }
@@ -31,7 +30,7 @@ const Register = ({ onClose }) => {
       name,
       address,
       dni,
-      role, // Se envía el rol
+      role: "client", // El rol ya está fijo como "client"
     };
 
     try {
@@ -102,18 +101,6 @@ const Register = ({ onClose }) => {
                 onChange={(e) => setDni(e.target.value)}
                 required
               />
-              <div className="form-group">
-                <label htmlFor="role">Rol</label>
-                <select
-                  id="role"
-                  className="form-control"
-                  value={role}
-                  onChange={(e) => setRole(e.target.value)}
-                >
-                  <option value="client">Cliente</option>
-                  <option value="admin">Administrador</option>
-                </select>
-              </div>
               {/* Mensaje de error */}
               {errorMessage && <ErrorMessage message={errorMessage} />}
               {/* Mensaje de éxito */}
