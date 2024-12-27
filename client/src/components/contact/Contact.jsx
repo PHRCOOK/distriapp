@@ -21,7 +21,11 @@ function Contacto() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const response = await axios.post("/api/contacts", formData);
+      const response = await axios.post("/api/contacts", {
+        nombre: formData.nombre,
+        correo: formData.correo,
+        mensaje: formData.mensaje,
+      });
 
       if (response.status === 201) {
         console.log("Formulario enviado:", response.data);

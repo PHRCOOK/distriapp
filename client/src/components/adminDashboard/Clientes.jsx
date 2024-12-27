@@ -48,13 +48,13 @@ function Clientes() {
       address: cliente.address,
       dni: cliente.dni,
       role: cliente.role,
-      password: "",
+      password: "", // No pre-ponemos una contraseña al editar
     });
   };
 
   const handleDelete = (id) => {
     axios
-      .delete(`api/users/${id}`)
+      .delete(`/api/users/${id}`)
       .then(() => {
         setClientes(clientes.filter((cliente) => cliente.id !== id));
       })
@@ -72,12 +72,25 @@ function Clientes() {
 
   const handleUpdate = (e) => {
     e.preventDefault();
+
+    // Verificar si todos los campos están llenos
+    if (
+      !formData.email ||
+      !formData.name ||
+      !formData.address ||
+      !formData.dni ||
+      !formData.role
+    ) {
+      setError("Todos los campos son obligatorios.");
+      return;
+    }
+
     axios
       .put(`/api/users/${editingUser.id}`, formData)
       .then((response) => {
         setClientes(
           clientes.map((cliente) =>
-            cliente.id === editingUser.id ? response.data.user : cliente
+            cliente.id === editingUser.id ? response.data : cliente
           )
         );
         setEditingUser(null);
@@ -91,7 +104,11 @@ function Clientes() {
         });
       })
       .catch((error) => {
-        setError(error.message);
+        console.error(
+          "Error en la actualización:",
+          error.response ? error.response.data : error.message
+        );
+        setError(error.response ? error.response.data.message : error.message);
       });
   };
 
@@ -192,15 +209,17 @@ function Clientes() {
                   />
                 </Form.Group>
               </Col>
+              {/* Aquí se deshabilita el campo de la contraseña */}
               <Col md={6}>
                 <Form.Group controlId="formPassword">
-                  <Form.Label>Contraseña</Form.Label>
+                  <Form.Label>Contraseña (no editable)</Form.Label>
                   <Form.Control
                     type="password"
                     name="password"
                     value={formData.password}
                     onChange={handleChange}
                     placeholder="Contraseña"
+                    disabled
                   />
                 </Form.Group>
               </Col>
