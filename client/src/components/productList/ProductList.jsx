@@ -40,25 +40,29 @@ const ProductList = () => {
     const product = products.find((p) => p.id === productId);
     if (product && product.stock > 0) {
       try {
-        // Reducir el stock localmente en el estado
-        setProducts((prevProducts) =>
-          prevProducts.map((p) =>
-            p.id === productId ? { ...p, stock: p.stock - 1 } : p
-          )
-        );
+        // Primero, hacemos la solicitud al servidor para actualizar el stock
+        const updatedProduct = { ...product, stock: product.stock - 1 };
 
-        // Enviar la actualización al servidor
-        await axios.put(`/api/products/${productId}`, {
-          stock: product.stock - 1,
+        // Enviamos la actualización del stock al backend
+        const response = await axios.put(`/api/products/${productId}`, {
+          stock: updatedProduct.stock,
         });
 
-        // Agregar el producto al carrito
-        addToCart(product);
+        // Si la actualización es exitosa, actualizamos el estado en el frontend
+        if (response.status === 200) {
+          setProducts((prevProducts) =>
+            prevProducts.map((p) =>
+              p.id === productId ? { ...p, stock: updatedProduct.stock } : p
+            )
+          );
+
+          // Agregar el producto al carrito
+          addToCart(product);
+        } else {
+          alert("Error al comprar el producto. Intente de nuevo.");
+        }
       } catch (error) {
-        console.error(
-          "Error actualizando el stock en la base de datos:",
-          error
-        );
+        console.error("Error actualizando el stock:", error);
         alert("Error al comprar el producto. Intente de nuevo.");
       }
     } else {

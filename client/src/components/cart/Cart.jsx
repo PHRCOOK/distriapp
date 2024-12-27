@@ -56,6 +56,7 @@ function Cart() {
 
   const sendOrderToServer = async () => {
     try {
+      // Iterar sobre los productos únicos y enviar el pedido
       for (const product of uniqueProducts) {
         const newOrder = {
           date: new Date(),
@@ -66,17 +67,21 @@ function Cart() {
             name: user.name,
             email: user.email,
             userType: userType,
-            id: user.id, // Accediendo al id desde el contexto UserContext
-            address: user.address, // Accediendo a address desde el contexto UserContext
-            dni: user.dni, // Accediendo a dni desde el contexto UserContext
+            id: user.id, // Asegúrate de que `user.id` esté presente
+            address: user.address, // Asegúrate de que `user.address` esté presente
+            dni: user.dni, // Asegúrate de que `user.dni` esté presente
           },
         };
 
-        await axios.post("/api/orders", newOrder);
+        // Enviar la solicitud de creación de pedido
+        const response = await axios.post("/api/orders", newOrder);
+        if (!response || response.status !== 201) {
+          throw new Error("No se pudo crear el pedido.");
+        }
       }
 
       // Agregar el pedido al historial en localStorage
-      const newOrder = {
+      const newOrderHistory = {
         date: new Date(),
         user: {
           name: user.name,
@@ -92,13 +97,11 @@ function Cart() {
 
       const existingHistory =
         JSON.parse(localStorage.getItem("orderHistory")) || [];
-      existingHistory.push(newOrder);
+      existingHistory.push(newOrderHistory);
       localStorage.setItem("orderHistory", JSON.stringify(existingHistory));
 
       alert(`Pedido enviado exitosamente.`);
-
-      // Borrar el carrito de compras después de enviar el pedido
-      setCart([]);
+      setCart([]); // Limpiar el carrito después de enviar el pedido
     } catch (error) {
       console.error("Error al enviar los datos a /orders:", error);
       alert("Hubo un error al enviar el pedido.");
