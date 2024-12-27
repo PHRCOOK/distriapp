@@ -35,7 +35,7 @@ const Register = ({ onClose }) => {
 
     try {
       // Realizamos la solicitud POST para registrar el usuario
-      const response = await axios.post("/users", user);
+      const response = await axios.post("/api/users", user);
 
       if (response.status === 201) {
         // Si la respuesta es exitosa, mostramos mensaje de éxito

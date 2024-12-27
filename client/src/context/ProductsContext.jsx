@@ -9,7 +9,7 @@ export const ProductsProvider = ({ children }) => {
   useEffect(() => {
     const fetchProducts = async () => {
       try {
-        const response = await axios.get("/productos");
+        const response = await axios.get("/api/productos");
         setProducts(response.data);
       } catch (error) {
         console.error("Error fetching products:", error);

@@ -4,14 +4,14 @@ import LoginForm from "./LoginForm";
 import ErrorMessage from "./ErrorMessage";
 import { useUser } from "../../context/UserContext";
 
-// Recursive function to search for role or type in the user object
+// Función recursiva para buscar el rol o tipo en el objeto del usuario
 const findRoleInUserObject = (userObj) => {
   if (userObj) {
-    // If 'role' or 'type' is directly found, return it
+    // Si encuentra 'role' o 'type', lo devuelve
     if (userObj.role) return userObj.role;
     if (userObj.type) return userObj.type;
 
-    // Recursively check nested objects
+    // Verifica los objetos anidados
     for (let key in userObj) {
       if (typeof userObj[key] === "object") {
         const foundRole = findRoleInUserObject(userObj[key]);
@@ -19,14 +19,14 @@ const findRoleInUserObject = (userObj) => {
       }
     }
   }
-  return null; // Return null if no role or type is found
+  return null; // Retorna null si no se encuentra un rol o tipo
 };
 
 const Login = ({ onClose }) => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [errorMessage, setErrorMessage] = useState("");
-  const { setUser, setUserType } = useUser(); // Use setUserType to update the role
+  const { setUser, setUserType } = useUser(); // Usar setUserType para actualizar el rol
 
   const handleLogin = async (e) => {
     e.preventDefault();
@@ -35,22 +35,24 @@ const Login = ({ onClose }) => {
     } else {
       try {
         setErrorMessage("");
-        const response = await axios.post("/login", {
+
+        // Solicitar login a la nueva ruta con prefijo "/api"
+        const response = await axios.post("/api/login", {
           email,
           password,
         });
 
-        // Log the full response to inspect its structure
+        // Loguea la respuesta completa para inspeccionar su estructura
         console.log("Full response data:", response.data);
 
         if (response.data && response.data.user) {
-          // Recursively search for the role in the user object
+          // Buscar el rol del usuario de forma recursiva
           const userRole = findRoleInUserObject(response.data.user);
 
           if (userRole) {
             setUser(response.data.user);
-            setUserType(userRole); // Save the user role here
-            console.log("User role:", userRole); // Log the role to the console
+            setUserType(userRole); // Guardar el rol del usuario
+            console.log("User role:", userRole); // Mostrar el rol en consola
           } else {
             console.log("User role is undefined. Please check the structure.");
           }
@@ -60,7 +62,7 @@ const Login = ({ onClose }) => {
 
         localStorage.setItem("user", JSON.stringify(response.data.user));
 
-        onClose();
+        onClose(); // Cerrar el modal al iniciar sesión
       } catch (error) {
         if (error.response) {
           setErrorMessage(error.response.data.message);
@@ -84,6 +86,7 @@ const Login = ({ onClose }) => {
               setPassword={setPassword}
               handleSubmit={handleLogin}
             />
+            {/* Muestra los mensajes de error */}
             <ErrorMessage message={errorMessage} />
           </div>
         </div>

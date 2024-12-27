@@ -19,7 +19,7 @@ const ProductosCrud = () => {
 
   const fetchProductos = async () => {
     try {
-      const response = await axios.get("/productos");
+      const response = await axios.get("/api/productos");
       setProductos(response.data);
     } catch (error) {
       console.error("Error al obtener los productos:", error);
@@ -33,7 +33,7 @@ const ProductosCrud = () => {
 
   const handleCrearProducto = async () => {
     try {
-      await axios.post("/productos", producto);
+      await axios.post("/api/productos", producto);
       fetchProductos();
       setProducto({ name: "", price: 0, description: "", image: "", stock: 0 });
     } catch (error) {
