@@ -11,7 +11,7 @@ export default function Flete() {
     // Función para obtener los envíos
     const fetchShipments = async () => {
       try {
-        const response = await axios.get("/shipment"); // Cambia la URL según tu configuración
+        const response = await axios.get("/api/shipment"); // Cambia la URL según tu configuración
         setShipments(response.data); // Guardar los datos en el estado
       } catch (err) {
         setError(err.message); // Manejar errores
@@ -26,7 +26,7 @@ export default function Flete() {
   // Función para eliminar un envío
   const handleDelete = async (id) => {
     try {
-      await axios.delete(`/shipment/${id}`);
+      await axios.delete(`/api/shipment/${id}`);
       setShipments(shipments.filter((shipment) => shipment.id !== id)); // Eliminar el envío del estado
     } catch (err) {
       setError("Error al eliminar el envío: " + err.message);

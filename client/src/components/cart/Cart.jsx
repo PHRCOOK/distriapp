@@ -72,7 +72,7 @@ function Cart() {
           },
         };
 
-        await axios.post("/orders", newOrder);
+        await axios.post("/api/orders", newOrder);
       }
 
       // Agregar el pedido al historial en localStorage

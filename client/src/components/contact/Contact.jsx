@@ -21,7 +21,7 @@ function Contacto() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const response = await axios.post("/contacto", formData);
+      const response = await axios.post("/api/contacts", formData);
 
       if (response.status === 201) {
         console.log("Formulario enviado:", response.data);
@@ -39,7 +39,7 @@ function Contacto() {
 
   const fetchMensajes = async () => {
     try {
-      const response = await axios.get("/contacto");
+      const response = await axios.get("/api/contacts");
       setMensajes(response.data);
     } catch (error) {
       console.error("Error al obtener los mensajes:", error);

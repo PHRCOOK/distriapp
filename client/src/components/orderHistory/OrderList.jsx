@@ -10,7 +10,7 @@ const OrderList = () => {
 
   const fetchOrders = async () => {
     try {
-      const response = await axios.get("/orders");
+      const response = await axios.get("/api/orders");
       setOrders(response.data);
       setFilteredOrders(response.data);
     } catch (err) {
@@ -20,7 +20,7 @@ const OrderList = () => {
 
   const deleteOrder = async (orderId) => {
     try {
-      await axios.delete(`/orders/${orderId}`);
+      await axios.delete(`/api/orders/${orderId}`);
       const updatedOrders = orders.filter((order) => order.id !== orderId);
       setOrders(updatedOrders);
       setFilteredOrders(updatedOrders); // Ensure filter stays in sync
@@ -45,7 +45,7 @@ const OrderList = () => {
         dni: order.dni,
       };
 
-      await axios.post("/shipment", shipmentData);
+      await axios.post("/api/shipment", shipmentData);
       alert(`El pedido con ID ${order.id} fue enviado al envío correctamente.`);
 
       // After sending the order to shipment, also delete it

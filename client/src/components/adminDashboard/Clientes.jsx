@@ -29,7 +29,7 @@ function Clientes() {
 
   useEffect(() => {
     axios
-      .get("/users")
+      .get("/api/users")
       .then((response) => {
         setClientes(response.data);
         setCargando(false);
@@ -54,7 +54,7 @@ function Clientes() {
 
   const handleDelete = (id) => {
     axios
-      .delete(`/delete/${id}`)
+      .delete(`api/users/${id}`)
       .then(() => {
         setClientes(clientes.filter((cliente) => cliente.id !== id));
       })
@@ -73,7 +73,7 @@ function Clientes() {
   const handleUpdate = (e) => {
     e.preventDefault();
     axios
-      .put(`/update/${editingUser.id}`, formData)
+      .put(`/api/users/${editingUser.id}`, formData)
       .then((response) => {
         setClientes(
           clientes.map((cliente) =>

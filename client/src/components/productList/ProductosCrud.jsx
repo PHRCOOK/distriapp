@@ -55,7 +55,7 @@ const ProductosCrud = () => {
 
   const handleActualizarProducto = async () => {
     try {
-      await axios.put(`api/products/${productoId}`, producto);
+      await axios.put(`/api/products/${productoId}`, producto);
       fetchProductos();
       setEditando(false);
       setProducto({ name: "", price: 0, description: "", image: "", stock: 0 });
@@ -67,7 +67,7 @@ const ProductosCrud = () => {
 
   const handleEliminarProducto = async (id) => {
     try {
-      await axios.delete(`api/products/${id}`);
+      await axios.delete(`/api/products/${id}`);
       fetchProductos();
     } catch (error) {
       console.error("Error al eliminar el producto:", error);

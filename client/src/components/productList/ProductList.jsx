@@ -48,7 +48,7 @@ const ProductList = () => {
         );
 
         // Enviar la actualización al servidor
-        await axios.put(`/productos/${productId}`, {
+        await axios.put(`/api/products/${productId}`, {
           stock: product.stock - 1,
         });
 
