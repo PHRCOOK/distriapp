@@ -21,7 +21,7 @@ import "bootstrap/dist/js/bootstrap.bundle.min.js";
 
 // axios.defaults.baseURL = "http://localhost:3000/";
 
-axios.defaults.baseURL = "https://server-production-f721.up.railway.app/";
+axios.defaults.baseURL = "https://server-production-ac29.up.railway.app/";
 
 const App = () => {
   return (
